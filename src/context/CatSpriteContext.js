@@ -8,6 +8,7 @@ export function CatSpriteContextProvider({ children }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [operations, setOperations] = useState({});
+  const [replayIndex, setReplayIndex] = useState(0);
 
   return (
     <CatSpriteContext.Provider
@@ -18,6 +19,8 @@ export function CatSpriteContextProvider({ children }) {
         setRotation,
         operations,
         setOperations,
+        replayIndex,
+        setReplayIndex,
       }}
     >
       {children}

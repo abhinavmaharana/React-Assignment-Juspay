@@ -3,7 +3,7 @@ import Constants from "../assets/constants/Constants";
 import { useCatSpriteContext } from "../context/CatSpriteContext";
 
 const useCatSprite = () => {
-  const { position, setPosition, rotation, setRotation, operations } =
+  const { position, setPosition, rotation, setRotation, operations, replayIndex, setReplayIndex } =
     useCatSpriteContext();
 
   const showAlert = (message) => {
@@ -92,6 +92,38 @@ const useCatSprite = () => {
     console.log(events);
   };
 
+  const replay = () => {
+    const replayEvents = operations[Constants.EVENTS.REPLAY] || [];
+    setReplayIndex(0);
+
+    const interval = setInterval(() => {
+      if (replayIndex < replayEvents.length) {
+        const action = replayEvents[replayIndex];
+        runAction(action);
+        console.log(action)
+        setReplayIndex((prevIndex) => prevIndex + 1);
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+  };
+
+  const runAction = (action) => {
+    switch (action) {
+      case Constants.MOTION.MOVE_10_STEPS:
+        move10Steps();
+        break;
+      case Constants.MOTION.ANTICLOCk_15_DEG:
+        handleRotateAntiClockwise();
+        break;
+      case Constants.MOTION.CLOCK_15_DEG:
+        handleRotateClockwise();
+        break;
+      default:
+        break;
+    }
+  };
+
   return {
     position,
     move10Steps,
@@ -101,6 +133,7 @@ const useCatSprite = () => {
     onSpriteClicked,
     onSayHelloClicked,
     onThinkHmmClicked,
+    replay,
   };
 };
 

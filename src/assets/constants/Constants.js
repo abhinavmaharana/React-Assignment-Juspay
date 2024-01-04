@@ -2,6 +2,7 @@ const Constants = {
   EVENTS: {
     FLAG_CLICK: "flagClickEvent",
     SPRITE_CLICK: "spriteClickEvent",
+    REPLAY: "replayEvent"
   },
   MOTION: {
     MOVE_10_STEPS: "move10StepsMotion",
